@@ -1,4 +1,4 @@
-package com.example.sport;
+package com.example.entity;
 
 
 import javax.persistence.*;

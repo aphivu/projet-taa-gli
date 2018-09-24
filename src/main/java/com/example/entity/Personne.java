@@ -1,6 +1,6 @@
-package com.example.personne;
+package com.example.entity;
 
-import com.example.activite.Activite;
+import com.example.entity.Activite;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;

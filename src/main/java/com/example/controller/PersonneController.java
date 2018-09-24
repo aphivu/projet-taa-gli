@@ -1,6 +1,10 @@
-package com.example.personne;
+package com.example.controller;
 
 
+import com.example.entity.Personne;
+import com.example.dto.PersonneDTO;
+import com.example.repository.PersonneRepository;
+import com.example.service.IPersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,7 +62,7 @@ public class PersonneController {
     @PostMapping("/add")
     public String addSingle(@RequestBody PersonneDTO personneDTO){
 
-        Personne personne = personneService.mapToEntiy(personneDTO);
+        Personne personne = personneService.mapToEntity(personneDTO);
         personneRepository.save(personne);
 
         return personneDTO.getPrenom() + " " + personne.getNom() + " is added";

@@ -1,4 +1,4 @@
-package com.example.localisation;
+package com.example.entity;
 
 
 import javax.persistence.Entity;

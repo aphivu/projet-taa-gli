@@ -1,4 +1,4 @@
-package com.example.personne;
+package com.example.dto;
 
 public class PersonneDTO {
     private String prenom;

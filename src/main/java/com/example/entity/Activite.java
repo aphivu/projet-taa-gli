@@ -1,10 +1,6 @@
-package com.example.activite;
+package com.example.entity;
 
-import com.example.localisation.Localisation;
-import com.example.personne.Personne;
-import com.example.sport.Sport;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 

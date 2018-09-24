@@ -1,8 +1,7 @@
-package com.example.personne;
+package com.example.repository;
 
+import com.example.entity.Personne;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public interface PersonneRepository extends JpaRepository<Personne, Long> {
 }
