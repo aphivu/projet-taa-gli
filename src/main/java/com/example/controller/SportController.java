@@ -15,7 +15,7 @@ import java.util.List;
  * Controller to handle all sport request
  */
 
-@Controller
+@RestController
 @RequestMapping("/sport")
 public class SportController {
 
@@ -29,6 +29,11 @@ public class SportController {
     @Autowired
     ISportService iSportService;
 
+
+    /**
+     * Get all available sports
+     * @return List of sport dto
+     */
     @GetMapping("/all")
     public @ResponseBody List<SportDTO> getAll(){
         List<SportDTO> list = new ArrayList<SportDTO>();
@@ -40,9 +45,48 @@ public class SportController {
         return list;
     }
 
+
+    /**
+     * Get a specific sport
+     * @param id :sport id to return
+     * @return all information from entity
+     */
     @GetMapping("/{id}")
-    public @ResponseBody Sport getSingle(@PathVariable long id){
+    public @ResponseBody Sport getSportById(@PathVariable long id){
         return sportRepository.getOne(id);
+    }
+
+    @GetMapping("/{name")
+    public @ResponseBody Sport getSportByName(@PathVariable String name){
+        //sportRepository.f
+
+        return null;
+    }
+
+
+    /**
+     * create a personne into the db
+     * @param sportDTO : needed information to create sport entity
+     * @return success string
+     */
+    @PostMapping("/add")
+    public String addSport(@RequestBody SportDTO sportDTO){
+        Sport sport = iSportService.mapToEntity(sportDTO);
+        sportRepository.save(sport);
+        return sport.getName() + " is added";
+    }
+
+
+    /**
+     * Remove a specific sport
+     * @param id : sport id to remove
+     * @return success string
+     */
+    @DeleteMapping("/remove/{id}")
+    public String removeSport(@PathVariable long id){
+        sportRepository.deleteById(id);
+
+        return id + " has been removed.";
     }
 
 

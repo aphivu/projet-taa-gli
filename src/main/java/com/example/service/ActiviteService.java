@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ActiviteService implements IActiviteService {
+
     @Override
     public Activite mapToEntity(ActiviteDTO dto) {
         /**
@@ -19,4 +20,5 @@ public class ActiviteService implements IActiviteService {
         return new ActiviteDTO(entity.getSport().getName(),
                 entity.getLocalisation().getVille());
     }
+
 }

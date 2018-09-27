@@ -23,4 +23,6 @@ public class ActiviteController {
 
     @Autowired
     IActiviteService iActiviteService;
+
+
 }

@@ -1,7 +1,7 @@
 package com.example.dto;
 
 public class SportDTO {
-    private String name;
+        private String name;
 
     public SportDTO(){}
     public SportDTO(String name) {
