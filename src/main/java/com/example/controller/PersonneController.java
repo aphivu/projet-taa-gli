@@ -32,22 +32,10 @@ public class PersonneController {
      */
 
     @Autowired
-    private PersonneRepository personneRepository;
-
-    @Autowired
     private IPersonneService personneService;
-
-   /* @Autowired
-    private ActiviteRepository activiteRepository;
 
     @Autowired
     private IActiviteService iActiviteService;
-
-    @Autowired
-    private SportRepository sportRepository;
-
-    @Autowired
-    private LocalisationRepository localisationRepository;*/
 
     /**
      * Get all the personne in database
@@ -55,11 +43,8 @@ public class PersonneController {
      */
     @RequestMapping("/all")
     public List<PersonneDTO> getPersonnes(){
-        List<PersonneDTO> list = new ArrayList<PersonneDTO>();
-        for(Personne p:personneRepository.findAll()){
-            list.add(personneService.mapToDto(p));
-        }
-        return list;
+
+       return personneService.getPersonnes();
     }
 
     /**
@@ -68,10 +53,15 @@ public class PersonneController {
      * @return Personne entity
      */
     @RequestMapping("/{id}")
-    public @ResponseBody Personne getPersonneById(@PathVariable Long id){
-        Personne personne = personneRepository.getOne(id);
-        System.out.println(personne.getNom());
-        return personne;
+    public @ResponseBody PersonneDTO getPersonneById(@PathVariable long id){
+
+       return personneService.getPersonneById(id);
+    }
+
+    @RequestMapping("/{id}/activites")
+    public @ResponseBody List<Activite> getActivites(@PathVariable long id){
+
+       return iActiviteService.getActivitesByPersonneId(id);
     }
 
     /**
@@ -82,10 +72,27 @@ public class PersonneController {
     @PostMapping("/add")
     public String addPersonne(@RequestBody PersonneDTO personneDTO){
 
-        Personne personne = personneService.mapToEntity(personneDTO);
-        personneRepository.save(personne);
+       Personne p = personneService.createPersonne(personneDTO);
+       if (p == null) { return personneDTO.getNom() + " has not been created";}
+       return p.getNom() + " has been created with id " + p.getId();
+    }
 
-        return personneDTO.getPrenom() + " " + personne.getNom() + " is added";
+    /**
+     * Create an activity
+     * @param id : personne id
+     * @param sid : sport id
+     * @param lid : localisation id
+     * @return success string
+     */
+    @PutMapping("/{id}/activites/add")
+    public @ResponseBody String addActivite(
+            @PathVariable long id,
+            @RequestParam long sid,
+            @RequestParam long lid
+    ){
+        Activite a = iActiviteService.createActivite(id,sid,lid);
+        if (a==null){ return "activity has not been created";}
+        return a.getId() + " has been created";
     }
 
 
@@ -96,10 +103,15 @@ public class PersonneController {
      */
     @DeleteMapping("/remove/{id}")
     public String removePersonneById(@PathVariable long id){
-        personneRepository.deleteById(id);
-        return id + " has been removed";
+        /*personneRepository.deleteById(id);
+        return id + " has been removed";*/
+        Personne p = personneService.removePersonneById(id);
+        if(p ==null){ return "no personne to remove";}
+        return p.getNom() + " has been removed";
     }
-
-
-
 }
+
+
+
+
+

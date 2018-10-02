@@ -2,13 +2,10 @@ package com.example.controller;
 
 import com.example.dto.LocalisationDTO;
 import com.example.entity.Localisation;
-import com.example.repository.LocalisationRepository;
 import com.example.service.ILocalisationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,36 +21,38 @@ public class LocalisationController {
     @Autowired
     private ILocalisationService iLocalisationService;
 
-    @Autowired
-    private LocalisationRepository localisationRepository;
-
     @GetMapping("/all")
     public @ResponseBody List<LocalisationDTO> getLocalisations(){
-        Iterable<Localisation> iterable = localisationRepository.findAll();
-        List<LocalisationDTO> list = new ArrayList<LocalisationDTO>();
-        for(Localisation l:iterable){
-            list.add(iLocalisationService.mapToDto(l));
-        }
-        return list;
+       return iLocalisationService.getLocalisations();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id={id}")
     public @ResponseBody Localisation getLocalisation(@PathVariable long id){
-        return localisationRepository.getOne(id);
+        return iLocalisationService.getLocalisationById(id);
+    }
+
+    @GetMapping("/ville={ville}")
+    public @ResponseBody Localisation getLocalisationByVille(@PathVariable String ville){
+        return iLocalisationService.getLocalisationByVille(ville);
     }
 
     @PostMapping("/add")
     public String addLocalisation(@RequestBody LocalisationDTO localisationDTO){
-        Localisation localisation = iLocalisationService.mapToEntity(localisationDTO);
-        localisationRepository.save(localisation);
 
-        return localisation.getVille() + " has been created";
+       Localisation l = iLocalisationService.createLocalisation(localisationDTO);
+       if (l == null){
+           return localisationDTO.getVille() + " has not been created";
+       }
+       return l.getVille() + " has been created with id " + l.getId();
     }
 
     @DeleteMapping("/remove/{id}")
     public String removeLocalisation(@PathVariable long id){
-        localisationRepository.deleteById(id);
 
-        return id + " has been removed";
+        Localisation l = iLocalisationService.removeLocalisationById(id);
+        if (l == null){
+            return "No localisation to delete";
+        }
+        return l.getId() + " has been removed";
     }
 }

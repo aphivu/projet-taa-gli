@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,15 +26,19 @@ public class Personne {
     private String prenom;
     private List<Activite> activites;
 
-    public Personne(){}
+    public Personne(){
+        this.activites = new ArrayList<Activite>();
+    }
 
     public Personne(String nom){
         this.nom = nom;
+        this.activites = new ArrayList<Activite>();
     }
 
     public Personne(String nom, String prenom){
         this.nom = nom;
         this.prenom = prenom;
+        this.activites = new ArrayList<Activite>();
     }
 
     @Id
@@ -64,10 +69,18 @@ public class Personne {
 
     @OneToMany(mappedBy = "personne")
     public List<Activite> getActivites() {
-        return activites;
+        if(this.activites == null){
+            this.activites = new ArrayList<Activite>();
+        }
+        return this.activites;
     }
 
     public void setActivites(List<Activite> activites) {
         this.activites = activites;
     }
+
+    public void addActivite(Activite activite){
+        this.activites.add(activite);
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.example.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 
@@ -10,6 +12,7 @@ import javax.persistence.*;
  *
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sport {
 
     private long id;

@@ -22,10 +22,6 @@ public class SportController {
     /**
      * Service Implementation Wiring
      */
-
-    @Autowired
-    SportRepository sportRepository;
-
     @Autowired
     ISportService iSportService;
 
@@ -36,13 +32,8 @@ public class SportController {
      */
     @GetMapping("/all")
     public @ResponseBody List<SportDTO> getAll(){
-        List<SportDTO> list = new ArrayList<SportDTO>();
-        Iterable<Sport> iterable = sportRepository.findAll();
-        for(Sport s:iterable){
-            list.add(iSportService.mapToDto(s));
-        }
 
-        return list;
+       return iSportService.getSports();
     }
 
 
@@ -51,16 +42,21 @@ public class SportController {
      * @param id :sport id to return
      * @return all information from entity
      */
-    @GetMapping("/{id}")
+    @GetMapping("/id={id}")
     public @ResponseBody Sport getSportById(@PathVariable long id){
-        return sportRepository.getOne(id);
+
+        return iSportService.getSportById(id);
     }
 
-    @GetMapping("/{name")
-    public @ResponseBody Sport getSportByName(@PathVariable String name){
-        //sportRepository.f
 
-        return null;
+    /**
+     * Get a specific sport
+     * @param name : sport name to return
+     * @return all information from entity
+     */
+    @GetMapping("/name={name}")
+    public @ResponseBody Sport getSportByName(@PathVariable String name){
+        return iSportService.getSportByName(name);
     }
 
 
@@ -71,9 +67,11 @@ public class SportController {
      */
     @PostMapping("/add")
     public String addSport(@RequestBody SportDTO sportDTO){
-        Sport sport = iSportService.mapToEntity(sportDTO);
-        sportRepository.save(sport);
-        return sport.getName() + " is added";
+
+      Sport s = iSportService.createSport(sportDTO);
+      if (s == null){ return sportDTO.getName() + " has not been created";}
+
+      return s.getName() + " has been added with id " + s.getId();
     }
 
 
@@ -84,9 +82,11 @@ public class SportController {
      */
     @DeleteMapping("/remove/{id}")
     public String removeSport(@PathVariable long id){
-        sportRepository.deleteById(id);
 
-        return id + " has been removed.";
+       Sport s = iSportService.removeSport(id);
+       if (s == null){ return " no sport to remove";}
+
+       return  s.getId() + " has been removed";
     }
 
 
