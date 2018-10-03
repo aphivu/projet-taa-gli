@@ -5,6 +5,7 @@ import com.example.entity.Activite;
 import com.example.entity.Personne;
 import com.example.dto.PersonneDTO;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface IPersonneService extends MapperService<Personne,PersonneDTO> {

@@ -1,16 +1,16 @@
 package com.example.service;
 
-import com.example.dto.ActiviteDTO;
+
 import com.example.entity.Activite;
 import com.example.entity.Personne;
 import com.example.dto.PersonneDTO;
-import com.example.repository.ActiviteRepository;
-import com.example.repository.LocalisationRepository;
+
 import com.example.repository.PersonneRepository;
-import com.example.repository.SportRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +40,7 @@ public class PersonneService implements IPersonneService {
     public PersonneDTO getPersonneById(long id) {
         Personne personne = personneRepository.getOne(id);
         PersonneDTO personneDTO = new PersonneDTO(personne.getPrenom(),personne.getNom());
+        personneDTO.setId(personne.getId());
         for(Activite a:personne.getActivites()){
             personneDTO.addActiviteDto(activiteService.mapToDto(a));
         }
@@ -47,6 +48,7 @@ public class PersonneService implements IPersonneService {
     }
 
     @Override
+    @Transactional
     public List<PersonneDTO> getPersonnes() {
         List<PersonneDTO> list = new ArrayList<>();
 
