@@ -51,18 +51,20 @@ public class ActiviteService implements IActiviteService {
 
     @Override
     public List<Activite> getActivitesByPersonneId(long pid) {
-        return personneRepository.getActiviteByPersonneId(pid);
+        //return personneRepository.getActiviteByPersonneId(pid);
+        return null;
     }
 
     @Override
     public Activite createActivite(long pid, long sid, long lid) {
-        if (activiteRepository.getActiviteByAllId(pid,sid,lid) != null){
+        /*if (activiteRepository.getActiviteByAllId(pid,sid,lid) != null){
             return null;
         }
-        Personne personne = personneRepository.getOne(pid);
+        /*Personne personne = personneRepository.getOne(pid);
         Sport sport = sportRepository.getOne(sid);
         Localisation localisation = localisationRepository.getOne(lid);
-        return activiteRepository.save(new Activite(personne,sport,localisation));
+        return activiteRepository.save(new Activite(personne,sport,localisation));*/
+        return null;
     }
 
     @Override

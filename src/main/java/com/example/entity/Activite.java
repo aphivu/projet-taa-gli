@@ -1,9 +1,8 @@
 package com.example.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
+
 
 
 /**
@@ -17,16 +16,14 @@ import javax.persistence.*;
 public class Activite {
 
     private long id;
-    private Personne personne;
     private Sport sport;
     private Localisation localisation;
 
-    //@Enumerated(EnumType.STRING)
-    //private Niveau niveau;
+    @Enumerated(EnumType.STRING)
+    private Niveau niveau;
 
     public Activite(){}
-    public Activite(Personne personne, Sport sport, Localisation localisation){
-        this.personne = personne;
+    public Activite(Sport sport, Localisation localisation){
         this.sport = sport;
         this.localisation = localisation;
     }
@@ -39,16 +36,6 @@ public class Activite {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JsonIgnore
-    public Personne getPersonne() {
-        return personne;
-    }
-
-    public void setPersonne(Personne personne) {
-        this.personne = personne;
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -69,11 +56,11 @@ public class Activite {
         this.localisation = localisation;
     }
 
-    /*public Niveau getNiveau() {
+    public Niveau getNiveau() {
         return niveau;
     }
 
     public void setNiveau(Niveau niveau) {
         this.niveau = niveau;
-    }*/
+    }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public interface PersonneRepository extends JpaRepository<Personne, Long> {
 
-    @Query(value = "select a from Activite a where a.personne.id=:id")
-    public List<Activite> getActiviteByPersonneId(@Param("id") long id);
+    /*@Query(value = "select a from Activite a where a.personne.id=:id")
+    public List<Activite> getActiviteByPersonneId(@Param("id") long id);*/
 
 }

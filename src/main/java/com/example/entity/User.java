@@ -1,32 +1,26 @@
 package com.example.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Collection;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class User {
 
-    private long id;
     private String username;
     private String password;
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private String mail;
+    private List<Activite> activites;
+
+    public User(){
+        this.activites = new ArrayList<>();
+    }
 
     @Id
     @GeneratedValue
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -43,12 +37,30 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="username")
+    public List<Activite> getActivites() {
+        return activites;
+    }
+
+    public void setActivites(List<Activite> activites) {
+        this.activites = activites;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
 

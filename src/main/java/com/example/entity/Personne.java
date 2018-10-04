@@ -24,21 +24,21 @@ public class Personne {
     private Long id;
     private String nom;
     private String prenom;
-    private List<Activite> activites;
+    //private List<Activite> activites;
 
     public Personne(){
-        this.activites = new ArrayList<Activite>();
+       // this.activites = new ArrayList<Activite>();
     }
 
     public Personne(String nom){
         this.nom = nom;
-        this.activites = new ArrayList<Activite>();
+       // this.activites = new ArrayList<Activite>();
     }
 
     public Personne(String nom, String prenom){
         this.nom = nom;
         this.prenom = prenom;
-        this.activites = new ArrayList<Activite>();
+        //this.activites = new ArrayList<Activite>();
     }
 
     @Id
@@ -67,8 +67,8 @@ public class Personne {
         this.prenom = preNom;
     }
 
-    @OneToMany(mappedBy = "personne")
-    public List<Activite> getActivites() {
+    //@OneToMany(mappedBy = "personne")
+    /*public List<Activite> getActivites() {
         if(this.activites == null){
             this.activites = new ArrayList<Activite>();
         }
@@ -81,6 +81,6 @@ public class Personne {
 
     public void addActivite(Activite activite){
         this.activites.add(activite);
-    }
+    }*/
 
 }

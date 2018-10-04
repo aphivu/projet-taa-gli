@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.entity.Role;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService,IUserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -29,14 +30,12 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(s + " not found");
         }
 
-        //System.out.println("id: " + user.getId() + " pwd:" + user.getPassword() +"%");
-
 
         UserDetails details = new UserDetails() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
                 List<SimpleGrantedAuthority> auths = new ArrayList<SimpleGrantedAuthority>();
-                auths.add(new SimpleGrantedAuthority(user.getRole()));
+                auths.add(new SimpleGrantedAuthority(user.getRole().toString()));
                 return auths;
             }
 
@@ -74,4 +73,33 @@ public class UserService implements UserDetailsService {
         return details;
     }
 
+    @Override
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User createUser(String username, String password, String mail, String role) {
+        if (getUserByUsername(username) != null){ return null;}
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(Role.valueOf(role));
+        user.setMail(mail);
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User deleterUser(String username) {
+        User user = getUserByUsername(username);
+        if (user == null){ return null;}
+        userRepository.delete(user);
+        return user;
+    }
 }

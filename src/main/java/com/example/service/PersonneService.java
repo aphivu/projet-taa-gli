@@ -41,9 +41,9 @@ public class PersonneService implements IPersonneService {
         Personne personne = personneRepository.getOne(id);
         PersonneDTO personneDTO = new PersonneDTO(personne.getPrenom(),personne.getNom());
         personneDTO.setId(personne.getId());
-        for(Activite a:personne.getActivites()){
+       /* for(Activite a:personne.getActivites()){
             personneDTO.addActiviteDto(activiteService.mapToDto(a));
-        }
+        }*/
         return personneDTO;
     }
 
