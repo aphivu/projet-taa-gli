@@ -2,11 +2,8 @@ package com.example.controller;
 
 
 import com.example.dto.ActiviteDTO;
-import com.example.entity.Activite;
-import com.example.entity.Localisation;
-import com.example.entity.Personne;
+import com.example.entity.*;
 import com.example.dto.PersonneDTO;
-import com.example.entity.Sport;
 import com.example.repository.ActiviteRepository;
 import com.example.repository.LocalisationRepository;
 import com.example.repository.PersonneRepository;
@@ -14,6 +11,8 @@ import com.example.repository.SportRepository;
 import com.example.service.IActiviteService;
 import com.example.service.IPersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -108,6 +107,12 @@ public class PersonneController {
         Personne p = personneService.removePersonneById(id);
         if(p ==null){ return "no personne to remove";}
         return p.getNom() + " has been removed";
+    }
+
+    @RequestMapping("/test")
+    public String testCurrent(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return " user is " + authentication.getName();
     }
 }
 
