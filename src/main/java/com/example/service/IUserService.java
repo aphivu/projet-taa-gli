@@ -13,6 +13,6 @@ public interface IUserService extends MapperService<User, UserDTO>{
     public User getUserByUsername(String username);
 
     public User createUser(UserDTO dto);
-    public User deleterUser(String username);
+    public User deleteUser(String username);
 
 }

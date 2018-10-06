@@ -41,7 +41,7 @@ public class UserService extends UserDetailsServiceImpl implements IUserService 
     }
 
     @Override
-    public User deleterUser(String username) {
+    public User deleteUser(String username) {
         User user = getUserByUsername(username);
         if (user == null){ return null;}
         userRepository.delete(user);

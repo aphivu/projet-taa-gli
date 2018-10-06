@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 
 @Configuration
@@ -18,8 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userService;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
+    @Autowired
+    private AccessDeniedHandler handler;
+
+    @Autowired
+    private BasicAuthenticationEntryPoint entryPoint;
+
+    @Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.userDetailsService(userService);
     }
@@ -27,13 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
-                .anyRequest().fullyAuthenticated()
-                .and().httpBasic()
                 .and()
-                .formLogin();
+                .httpBasic().authenticationEntryPoint(entryPoint)
+                .and()
+                .exceptionHandling().accessDeniedHandler(handler);
     }
 
 

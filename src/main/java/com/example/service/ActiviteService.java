@@ -50,10 +50,10 @@ public class ActiviteService implements IActiviteService {
     }
 
     @Override
-    public List<Activite> getActivitesByPersonneId(long pid) {
-        //return personneRepository.getActiviteByPersonneId(pid);
+    public List<Activite> getActivitesByUserName(String username) {
         return null;
     }
+
 
     @Override
     public Activite createActivite(long pid, long sid, long lid) {

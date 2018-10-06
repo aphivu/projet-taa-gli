@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/sport")
+@RequestMapping("/")
 public class SportController {
 
     /**
@@ -30,7 +30,7 @@ public class SportController {
      * Get all available sports
      * @return List of sport dto
      */
-    @GetMapping("/all")
+    @GetMapping("admin/sport/all")
     public @ResponseBody List<SportDTO> getAll(){
 
        return iSportService.getSports();
@@ -42,7 +42,7 @@ public class SportController {
      * @param id :sport id to return
      * @return all information from entity
      */
-    @GetMapping("/id={id}")
+    @GetMapping("sport/id={id}")
     public @ResponseBody Sport getSportById(@PathVariable long id){
 
         return iSportService.getSportById(id);
@@ -54,7 +54,7 @@ public class SportController {
      * @param name : sport name to return
      * @return all information from entity
      */
-    @GetMapping("/name={name}")
+    @GetMapping("/sport/name={name}")
     public @ResponseBody Sport getSportByName(@PathVariable String name){
         return iSportService.getSportByName(name);
     }
@@ -65,7 +65,7 @@ public class SportController {
      * @param sportDTO : needed information to create sport entity
      * @return success string
      */
-    @PostMapping("/add")
+    @PostMapping("admin/sport/add")
     public String addSport(@RequestBody SportDTO sportDTO){
 
       Sport s = iSportService.createSport(sportDTO);
@@ -80,7 +80,7 @@ public class SportController {
      * @param id : sport id to remove
      * @return success string
      */
-    @DeleteMapping("/remove/{id}")
+    @DeleteMapping("admin/sport/remove/{id}")
     public String removeSport(@PathVariable long id){
 
        Sport s = iSportService.removeSport(id);

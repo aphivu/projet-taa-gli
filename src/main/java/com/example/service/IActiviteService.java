@@ -9,7 +9,7 @@ import java.util.List;
 public interface IActiviteService extends MapperService<Activite, ActiviteDTO> {
 
     public Activite getActiviteById(long id);
-    public List<Activite> getActivitesByPersonneId(long pid);
+    public List<Activite> getActivitesByUserName(String username);
 
     public Activite createActivite(long pid,long sid, long lid);
     public Activite removeActiviteById(long id);
