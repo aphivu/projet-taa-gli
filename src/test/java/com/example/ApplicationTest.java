@@ -1,74 +1,72 @@
 package com.example;
 
 
-import com.example.controller.PersonneController;
-import com.example.dto.PersonneDTO;
+import com.example.controller.UserController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.*;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 public class ApplicationTest {
 
-    @Autowired PersonneController personneController;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
 
     private MockMvc mockMvc;
 
+   // @Autowired
+   // private UserController userController;
+
     @Before
-    public void setUp(){
-        mockMvc = MockMvcBuilders.standaloneSetup(personneController).build();
+    public void setup(){
+       this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+               .apply(SecurityMockMvcConfigurers.springSecurity())
+               .build();
     }
 
     @Test
-    public void testGetPersonnes() throws Exception {
-       ResultActions actions =  mockMvc.perform(get("/personne/all"));
-
-       actions.andExpect(status().isOk())
-               .andExpect(jsonPath("$", hasSize(3)));
+    @WithMockUser
+    public void getDetailsSuccess() throws Exception {
+        this.mockMvc.perform(get("/details"))
+                .andExpect(status().isOk());
     }
 
     @Test
-    @Transactional
-    public void testGetPersonne() throws Exception {
-        long idPersonne = 1;
-
-        ResultActions actions = mockMvc.perform(get("/personne/{id}",idPersonne));
-        actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.nom",is("Robert")));
-
-
+    @WithMockUser(username = "invalid")
+    public void getDetailsFail() throws  Exception {
+        this.mockMvc.perform(get("/details"))
+                .andExpect(jsonPath("$.username").doesNotExist());
     }
-
 
     @Test
-    public void testAddPersonne() throws Exception {
-        PersonneDTO dto = new PersonneDTO("nomTest","prenomTest");
-        /*
-        ResultActions actions = mockMvc.perform(post("/personne/add")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"nom\":\""+dto.getNom()+"\",\"prenom\":\""+dto.getPrenom()+"\"}"));
-        actions.andExpect(status().isOk());*/
-
-
+    public void getUsersSuccess() throws Exception {
+        this.mockMvc.perform(get("/admin/users").with(httpBasic("admin","password")))
+                .andExpect(status().isOk());
     }
 
-
-
-
-
+    @Test
+    @WithMockUser
+    public void getUsersFail() throws Exception {
+        this.mockMvc.perform(get("/admin/users"))
+                .andExpect(status().is(403));
+    }
 }

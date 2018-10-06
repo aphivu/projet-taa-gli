@@ -20,7 +20,6 @@ public class User {
     }
 
     @Id
-    @GeneratedValue
     public String getUsername() {
         return username;
     }
@@ -45,7 +44,7 @@ public class User {
         this.role = role;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="username")
     public List<Activite> getActivites() {
         return activites;
