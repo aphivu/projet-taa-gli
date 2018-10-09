@@ -37,7 +37,7 @@ public class UserController {
      * Get user detailed information
      * @return DTO for users
      */
-    @RequestMapping("details")
+    @GetMapping("details")
     public UserDetailsDto getDetails(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getUserDetails(auth.getName());
@@ -47,7 +47,7 @@ public class UserController {
      * Get the sport list of available sport in the db
      * @return List of Sport
      */
-    @RequestMapping("sports")
+    @GetMapping("sports")
     public List<SportDTO> getSports(){
         return sportService.getSports();
     }
@@ -57,7 +57,7 @@ public class UserController {
      * @param name: the sport to detailed
      * @return Sport entity
      * */
-    @RequestMapping("sports/{name}")
+    @GetMapping("sports/{name}")
     public Sport getSportByName(@PathVariable String name){
         return sportService.getSportByName(name);
     }
@@ -66,12 +66,12 @@ public class UserController {
      * Get the available localisations
      * @return List of Localisation entity
      */
-    @RequestMapping("localisations")
+    @GetMapping("localisations")
     public List<LocalisationDTO> getLocalisations(){
         return localisationService.getLocalisations();
     }
 
-    @RequestMapping("localisations/{ville}")
+    @GetMapping("localisations/{ville}")
     public Localisation getLocalisationByVille(@PathVariable String ville){
         return localisationService.getLocalisationByVille(ville);
     }
@@ -80,7 +80,7 @@ public class UserController {
      * Get all the user activities
      * @return List of Activite entities
      */
-    @RequestMapping("activities")
+    @GetMapping("activities")
     public List<Activite> getActivites(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
