@@ -1,29 +1,31 @@
 package com.example.service;
 
+import com.example.dto.ActiviteDTO;
 import com.example.dto.UserDTO;
+import com.example.dto.UserDetailsDto;
+import com.example.entity.Activite;
 import com.example.entity.Role;
 import com.example.entity.User;
-import com.example.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Service component to handle request on user entity
+ */
 @Service
 public class UserService extends UserDetailsServiceImpl implements IUserService {
+
+    @Autowired
+    private ActiviteService activiteService;
 
 
     @Override
     public List<User> getUsers() {
-        System.out.println("************* service layer");
         return userRepository.findAll();
     }
 
@@ -31,6 +33,17 @@ public class UserService extends UserDetailsServiceImpl implements IUserService 
     @Transactional
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public UserDetailsDto getUserDetails(String username) {
+        User user = getUserByUsername(username);
+        UserDetailsDto details = new UserDetailsDto(mapToDto(user));
+        details.setDto(mapToDto(user));
+        for(Activite activite:user.getActivites()){
+            details.getActivities().add(activiteService.mapToDto(activite));
+        }
+        return details;
     }
 
     @Override
@@ -46,6 +59,42 @@ public class UserService extends UserDetailsServiceImpl implements IUserService 
         if (user == null){ return null;}
         userRepository.delete(user);
         return user;
+    }
+
+    @Override
+    public User addActivity(String username, ActiviteDTO dto) {
+        User user = getUserByUsername(username);
+        List<Activite> list = user.getActivites();
+        for (Activite a:list){
+            if (a.getSport().getName().equals(dto.getSport()) && a.getLocalisation().getVille().equals(dto.getLocalisation())){
+                return user;
+            }
+        }
+
+        Activite activite = activiteService.createActivite(dto);
+
+        list.add(activite);
+
+        user.setActivites(list);
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User removeActivity(String username, long id) {
+        User user = getUserByUsername(username);
+        for(Activite activite:user.getActivites()){
+            if (activite.getId() == id){
+                user.getActivites().remove(activite);
+                user.getActivites().remove(activiteService.removeActiviteById(id));
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public List<Activite> getActivities(String username) {
+        return getUserByUsername(username).getActivites();
     }
 
     @Override
@@ -68,4 +117,5 @@ public class UserService extends UserDetailsServiceImpl implements IUserService 
         );
         return dto;
     }
+
 }

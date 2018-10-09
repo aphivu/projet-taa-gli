@@ -5,6 +5,9 @@ import com.example.entity.Sport;
 
 import java.util.List;
 
+/**
+ * Sport service component
+ */
 public interface ISportService extends MapperService<Sport, SportDTO> {
 
     public Sport getSportById(long id);

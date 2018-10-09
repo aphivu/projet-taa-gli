@@ -21,8 +21,6 @@ public class ActiviteService implements IActiviteService {
     @Autowired
     private ActiviteRepository activiteRepository;
 
-    @Autowired
-    private PersonneRepository personneRepository;
 
     @Autowired
     private SportRepository sportRepository;
@@ -32,10 +30,10 @@ public class ActiviteService implements IActiviteService {
 
     @Override
     public Activite mapToEntity(ActiviteDTO dto) {
-        /**
-         * TODO: make imlementation if necessary
-         */
-        return null;
+        Sport sport = sportRepository.getSportByName(dto.getSport());
+        Localisation localisation = localisationRepository.getLocalisationByVille(dto.getLocalisation());
+        if (sport == null || localisation == null){ return null;}
+        return new Activite(sport,localisation);
     }
 
     @Override
@@ -50,21 +48,8 @@ public class ActiviteService implements IActiviteService {
     }
 
     @Override
-    public List<Activite> getActivitesByUserName(String username) {
-        return null;
-    }
-
-
-    @Override
-    public Activite createActivite(long pid, long sid, long lid) {
-        /*if (activiteRepository.getActiviteByAllId(pid,sid,lid) != null){
-            return null;
-        }
-        /*Personne personne = personneRepository.getOne(pid);
-        Sport sport = sportRepository.getOne(sid);
-        Localisation localisation = localisationRepository.getOne(lid);
-        return activiteRepository.save(new Activite(personne,sport,localisation));*/
-        return null;
+    public Activite createActivite(ActiviteDTO dto) {
+        return activiteRepository.save(mapToEntity(dto));
     }
 
     @Override

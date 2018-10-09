@@ -44,7 +44,7 @@ public class User {
         this.role = role;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name="username")
     public List<Activite> getActivites() {
         return activites;

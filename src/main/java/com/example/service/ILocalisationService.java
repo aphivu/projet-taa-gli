@@ -5,6 +5,9 @@ import com.example.dto.LocalisationDTO;
 
 import java.util.List;
 
+/**
+ * Localisation service component
+ */
 public interface ILocalisationService extends MapperService<Localisation,LocalisationDTO>{
 
     public Localisation getLocalisationById(long id);

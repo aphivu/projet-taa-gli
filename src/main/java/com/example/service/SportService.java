@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of Sport service Bean
+ */
 @Service
 public class SportService implements ISportService{
 

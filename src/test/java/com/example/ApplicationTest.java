@@ -1,6 +1,9 @@
 package com.example;
 
+import com.example.dto.ActiviteDTO;
+import com.example.dto.LocalisationDTO;
 import com.example.dto.SportDTO;
+import com.example.dto.UserDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +42,6 @@ public class ApplicationTest {
     private String validUser = "user";
     private String validAdmin = "admin";
     private String validPwd = "password";
-    private String invalidLogin = "invalid";
 
     @Before
     public void setup(){
@@ -60,7 +62,7 @@ public class ApplicationTest {
     @Test
     public void getDetailsFail() throws  Exception {
         this.mockMvc.perform(get("/user/details")
-                .with(httpBasic(invalidLogin,validPwd)))
+                .with(httpBasic("invalid",validPwd)))
                 .andExpect(status().is(401));
 
     }
@@ -69,7 +71,8 @@ public class ApplicationTest {
     public void getUsersSuccess() throws Exception {
         this.mockMvc.perform(get("/admin/users")
                 .with(httpBasic(validAdmin,validPwd)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$",hasSize(4)));
     }
 
     @Test
@@ -92,12 +95,61 @@ public class ApplicationTest {
         this.mockMvc.perform(get("/user/localisations")
                 .with(httpBasic(validUser,validPwd)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$",hasSize(2)));
+                .andExpect(jsonPath("$",hasSize(3)));
+    }
+
+    @Test
+    public void getSportByNameSuccess() throws Exception {
+        this.mockMvc.perform(get("/user/sports/Tennis")
+                .with(httpBasic(validUser,validPwd)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(11));
+    }
+
+    @Test
+    public void getLocalisationByVille() throws Exception {
+        this.mockMvc.perform(get("/user/localisations/Rennes")
+                .with(httpBasic(validUser,validPwd)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.region").value("Bretagne"));
+    }
+
+    @Test
+    public void getActivities() throws Exception {
+        this.mockMvc.perform(get("/user/activities")
+                .with(httpBasic(validUser,validPwd)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$",hasSize(1)));
     }
 
     /******* Post *****/
+
+
     @Test
-    public void addSportSuccess() throws Exception {
+    public void postUserSuccess() throws Exception {
+        UserDTO dto = new UserDTO("manuemael","password","manuemael@mail.com","ROLE_USER");
+
+        this.mockMvc.perform(post("/admin/addUser")
+                .with(httpBasic(validAdmin,validPwd))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void postUserFail() throws Exception {
+        UserDTO dto = new UserDTO("manuemael","password","manuemael@mail.com","ROLE_USER");
+
+        this.mockMvc.perform(post("/admin/addUser")
+                .with(httpBasic(validUser,validPwd))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void postSportSuccess() throws Exception {
 
         SportDTO dto = new SportDTO("Surf");
         this.mockMvc.perform(post("/admin/addSport")
@@ -108,7 +160,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void addSportFailed() throws Exception {
+    public void postSportFailed() throws Exception {
         SportDTO dto = new SportDTO("SportTest");
         this.mockMvc.perform(post("/admin/addSport")
                 .with(httpBasic(validUser,validPwd))
@@ -117,6 +169,36 @@ public class ApplicationTest {
                 .andExpect(status().isForbidden());
     }
 
+    @Test
+    public void postLocalisationSuccess() throws Exception {
+        LocalisationDTO dto = new LocalisationDTO("Nantes","Pays de la Loire");
+        this.mockMvc.perform(post("/admin/addLocalisation")
+                .with(httpBasic(validAdmin,validPwd))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void postLocalisationFail() throws Exception {
+        LocalisationDTO dto = new LocalisationDTO("Nantes","Pays de la Loire");
+        this.mockMvc.perform(post("/admin/addLocalisation")
+                .with(httpBasic(validUser,validPwd))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isForbidden());
+    }
+
+
+    @Test
+    public void postActivity() throws Exception {
+        ActiviteDTO dto = new ActiviteDTO("Tennis","Rennes");
+        this.mockMvc.perform(post("/user/activities/add")
+                .with(httpBasic(validUser,validPwd))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk());
+    }
 
 
 }

@@ -14,7 +14,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service("UserDetailsServiceImpl")
+
+/**
+ * Implementation of UserDetailsService
+ * To set basic auth management
+ * Need to access DB where is stored user information
+ */
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

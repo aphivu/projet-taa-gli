@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *
+ * Rest controller to handle all admin services
+ *
+ */
+
 @RestController
 @RequestMapping("admin/")
 public class AdminController {
@@ -27,11 +33,21 @@ public class AdminController {
     @Autowired
     private ILocalisationService iLocalisationService;
 
+
+    /**
+     * Get all users registered in the DB
+     * @return List of User entity
+     */
     @GetMapping("users")
     public List<User> getUsers(){
         return iUserService.getUsers();
     }
 
+    /**
+     * Add a user in the DB
+     * @param dto: necessary data to perform a create query
+     * @return  response string
+     */
     @PostMapping("addUser")
     public String addUser(@RequestBody UserDTO dto){
         User user = iUserService.getUserByUsername(dto.getUsername());
@@ -39,6 +55,11 @@ public class AdminController {
         return iUserService.createUser(dto).getUsername() + " has been registered";
     }
 
+    /**
+     * Add a user in the DB
+     * @param dto : necessary data to perform an insert into
+     * @return response string
+     */
     @PostMapping("addSport")
     public String addSport(@RequestBody SportDTO dto){
         Sport sport = iSportService.getSportByName(dto.getName());
@@ -47,6 +68,11 @@ public class AdminController {
         return iSportService.createSport(dto).getName() + " has been registered";
     }
 
+    /**
+     * Add a localisation in the DB
+     * @param dto : necessary data to perform an insert into
+     * @return response success
+     */
     @PostMapping("addLocalisation")
     public String addLocalisation(@RequestBody LocalisationDTO dto){
         Localisation localisation = iLocalisationService.getLocalisationByVille(dto.getVille());
@@ -55,6 +81,11 @@ public class AdminController {
         return iLocalisationService.createLocalisation(dto).getVille() + " has been registered";
     }
 
+    /**
+     * Remove a user in the DB
+     * @param username : id user to remove
+     * @return response string
+     */
     @DeleteMapping("deleterUser/{username}")
     public String deleteUser(@PathVariable String username){
         User user = iUserService.getUserByUsername(username);
@@ -62,6 +93,11 @@ public class AdminController {
         return iUserService.deleteUser(user.getUsername()).getUsername() + " has been deleted";
     }
 
+    /**
+     * remove a Sport in the db
+     * @param sportName : name identification to remove
+     * @return response string
+     */
     @DeleteMapping("deleteSport/{sportName}")
     public String deleteSport(@PathVariable String sportName){
         Sport sport = iSportService.getSportByName(sportName);
@@ -69,6 +105,11 @@ public class AdminController {
         return iSportService.removeSport(sport.getId()).getName() + " has been deleted";
     }
 
+    /**
+     * remove a localisation from the DB
+     * @param ville : ville to identify
+     * @return response string
+     */
     @DeleteMapping("deleteLocalisation/{ville}")
     public String deleteLocalisation(@PathVariable String ville){
         Localisation localisation = iLocalisationService.getLocalisationByVille(ville);

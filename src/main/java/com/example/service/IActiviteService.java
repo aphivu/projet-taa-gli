@@ -6,11 +6,13 @@ import com.example.entity.Personne;
 
 import java.util.List;
 
+/**
+ * Activite Security component
+ */
 public interface IActiviteService extends MapperService<Activite, ActiviteDTO> {
 
     public Activite getActiviteById(long id);
-    public List<Activite> getActivitesByUserName(String username);
 
-    public Activite createActivite(long pid,long sid, long lid);
+    public Activite createActivite(ActiviteDTO dto);
     public Activite removeActiviteById(long id);
 }
