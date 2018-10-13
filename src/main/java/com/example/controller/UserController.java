@@ -21,6 +21,7 @@ import java.util.List;
  * Rest Controller to handle user services
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/user/")
 public class UserController {
 

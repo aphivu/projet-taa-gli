@@ -37,10 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/admin/*").hasRole("ADMIN")
+                .cors()
+                .and()
+                .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/**").hasAnyRole("USER","ADMIN")
                 .and()
                 .httpBasic().authenticationEntryPoint(entryPoint)
+                .and()
+                .formLogin().loginProcessingUrl("/login")
                 .and()
                 .exceptionHandling().accessDeniedHandler(handler);
     }

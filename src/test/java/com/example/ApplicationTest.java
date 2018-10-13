@@ -41,7 +41,7 @@ public class ApplicationTest {
 
     private String validUser = "user";
     private String validAdmin = "admin";
-    private String validPwd = "password";
+    private String validPwd = "testpwd";
 
     @Before
     public void setup(){
@@ -87,7 +87,13 @@ public class ApplicationTest {
         this.mockMvc.perform(get("/user/sports")
                 .with(httpBasic(validUser,validPwd)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$",hasSize(4)));
+                .andExpect(jsonPath("$",hasSize(5)));
+    }
+
+    @Test
+    public void getSportFail() throws Exception {
+        this.mockMvc.perform(get("/user/sports"))
+                .andExpect(status().is(401));
     }
 
     @Test
@@ -96,6 +102,12 @@ public class ApplicationTest {
                 .with(httpBasic(validUser,validPwd)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",hasSize(3)));
+    }
+
+    @Test
+    public void getLocalisationFail() throws Exception {
+        this.mockMvc.perform(get("/user/localisations"))
+                .andExpect(status().is(401));
     }
 
     @Test
@@ -200,5 +212,9 @@ public class ApplicationTest {
                 .andExpect(status().isOk());
     }
 
+    /******* Delete **********/
+    /**
+     * TODO: Implement Delete request test
+     */
 
 }
