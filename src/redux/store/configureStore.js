@@ -6,8 +6,7 @@ import {user} from '../reducers/user'
 const middlewares = applyMiddleware(thunk, createLogger())
 
 export default function configureStore(preloadedState = {}) { 
-    //const store = createStore(user, preloadedState, middlewares);
-    const store = createStore(user);
+    const store = createStore(user,middlewares);
     console.log("store config: ")
     console.log(store.getState());
     return store;

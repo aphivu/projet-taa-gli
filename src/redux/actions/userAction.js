@@ -1,8 +1,67 @@
-const LOGIN = 'LOGIN';
-export function login(username,password){
+//import fetch from 'cross-fetch'
+import {apiUrl} from '../../requests/utils'
+
+const LOGIN_REQUEST = 'LOGIN_REQUEST';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+
+export function loginRequest(username,password){
     return {
-        type: LOGIN,
+        type: LOGIN_REQUEST,
         username: username,
         password: password
+    }
+}
+
+export function loginSucess(username, password){
+    return {
+        type: LOGIN_SUCCESS,
+        username:username,
+        password:password
+    }
+}
+
+export function loginFailure(){
+    return {
+        type: LOGIN_FAILURE 
+    }
+}
+
+export function login(username,password){
+    console.log("Login");
+
+    return function (dispatch){
+
+        dispatch(loginRequest(username,password));
+
+        const loginHeader = {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Basic '+ btoa(username+':'+password),
+            }
+        }
+
+        return fetch(apiUrl + '/loginApp',loginHeader)
+                .then((response) => {
+                    if (response.ok){
+                        response.json()
+                        .then((responseJson) => {
+                            if (responseJson){
+                                dispatch(loginSucess(username,password))
+                            }
+                            else {
+                                dispatch(loginFailure())
+                            }
+                        });
+                    } else {
+                        dispatch(loginFailure())
+                    }        
+                },
+                    error => {
+                        console.log('An error occurred.', error);
+                        dispatch(loginFailure())
+                    }
+                )
     }
 }

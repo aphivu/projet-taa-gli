@@ -10,12 +10,20 @@ export default function login(username,password){
     }
 
     return fetch(apiUrl + '/loginApp',obj)
-        .then((response) => response.json())
+        .then((response) => {
+            console.log(response.status)
+            if (response.status === 401) { 
+                console.log("unhautorized");
+                return false;}
+            response.json()
+        })
         .then((responseJson) => {
-          return responseJson;
+            console.log("Value")
+            console.log(responseJson);
+          return false;
         })
         .catch((error) => {
-          console.error(error);
+          console.error("error");
           return false;
         });
 }
