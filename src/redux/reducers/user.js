@@ -1,16 +1,12 @@
-import login from '../../requests/loginRequest'
 
 const initialState = { 
-    user: {
-        username:'',
-        password:'',
-        authenticated:false
-    },
+    username:'',
+    password:'',
+    authenticated:false, 
     isLogging: false
 }
 
 export function user(state = initialState,action){
-    //console.log(state);
 
     switch (action.type){
 
@@ -21,17 +17,17 @@ export function user(state = initialState,action){
 
         case "LOGIN_SUCCESS":
             return Object.assign({}, state, {
-                user:{
-                    username:action.username,
-                    password:action.password,
-                    authenticated:true
-                },
+                username:action.username,
+                password:action.password,
+                authenticated:true,
                 isLogging: false
             })
         case "LOGIN_FAILURE":
             return Object.assign({}, state, {
-                user: initialState.user,
-                isLogging: false
+                username:initialState.username,
+                password:initialState.password,
+                authenticated:false,
+                isLogging:false
             })
 
         default:

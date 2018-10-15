@@ -12,7 +12,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => {
-    console.log("mapDispatchToProps")
     return {
         handleSubmit: (user) => {
             dispatch(login(user.username,user.password));

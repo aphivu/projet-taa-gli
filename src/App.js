@@ -1,20 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import LoginPage from './components/LoginPage';
-import LoginPageContainer from './redux/containers/LoginPageContainer'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom' 
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = { authenticated: this.props.authenticated}
+  }
+  
+  renderLogin = () => {
+    if (!this.state.authenticated) {
+      return <Link to="/login"><button>Login</button></Link>
+    }
+  }
+  
   render() {
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        <LoginPageContainer />
+        <header>
+          {this.renderLogin()}
         </header>
+
+        <hr />
+        
       </div>
     );
   }
 }
 
-export default App;
+
+const mapStateToProps = state => ({
+  authenticated: state.user.authenticated
+})
+
+export default connect(
+  mapStateToProps
+)(App)

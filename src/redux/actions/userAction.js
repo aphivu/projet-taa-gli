@@ -41,7 +41,7 @@ export function login(username,password){
               'Authorization': 'Basic '+ btoa(username+':'+password),
             }
         }
-
+        console.log(username + " " + password)
         return fetch(apiUrl + '/loginApp',loginHeader)
                 .then((response) => {
                     if (response.ok){
