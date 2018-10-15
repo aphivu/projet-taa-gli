@@ -46,7 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginProcessingUrl("/login")
                 .and()
-                .exceptionHandling().accessDeniedHandler(handler);
+                .exceptionHandling().accessDeniedHandler(handler)
+                .and()
+                .logout()
+                    .invalidateHttpSession(true)
+                    .logoutUrl("/logout");
     }
 
 
