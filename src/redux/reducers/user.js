@@ -16,6 +16,7 @@ export function user(state = initialState,action){
             })
 
         case "LOGIN_SUCCESS":
+        console.log("login success")
             return Object.assign({}, state, {
                 username:action.username,
                 password:action.password,

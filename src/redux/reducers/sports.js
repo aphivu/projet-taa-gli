@@ -15,8 +15,9 @@ export function sports(state=initialState,action){
         }
 
         case 'SPORTS_SUCCESS':{
+            console.log("sport success")
             return Object.assign({}, state, { 
-                sports: action.users,
+                sports: action.sports,
                 isFetchingSport: false
             })
         }

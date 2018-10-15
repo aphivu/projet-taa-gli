@@ -4,18 +4,18 @@ import HomePage from '../../components/HomePage'
 import {getSports} from '../actions/sportsActions'
 
 const HomePageContainer = (props) => (
-    <HomePage sports={props.sports}/>
+    <HomePage sports={props.sports.sports} getSports={props.getSports} user={props.user}/>
 )
 
 const mapStateToProps = state => ({
     sports: state.sports,
-    authenticated: state.user.authenticated
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => {
     return {
-        getSports: () => {
-            dispatch(getSports());
+        getSports: (user) => {
+            dispatch(getSports(user.username,user.password));
         }
     }
 }

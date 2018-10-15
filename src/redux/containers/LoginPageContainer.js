@@ -4,11 +4,11 @@ import LoginPage from '../../components/LoginPage'
 import {login} from '../actions/userAction'
 
 const LoginPageContainer = (props) => (
-    <LoginPage user = {props.user} handleSubmit={props.handleSubmit}/>
+    <LoginPage authenticated = {props.authenticated} handleSubmit={props.handleSubmit}/>
 )
 
 const mapStateToProps = state => ({
-    user: state.user
+    authenticated: state.user.authenticated
 })
 
 const mapDispatchToProps = dispatch => {

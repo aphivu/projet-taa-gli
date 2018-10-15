@@ -23,7 +23,7 @@ export function sportsFailure(){
     }
 }
 
-export function getSports(){
+export function getSports(username,password){
     console.log("Get Sports");
 
     return function (dispatch){
@@ -31,15 +31,18 @@ export function getSports(){
         dispatch(sportsRequest());
 
         const loginHeader = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Authorization': 'Basic '+ btoa( username + ':' + password)
+              }
         }
 
         return fetch(apiUrl + '/user/sports',loginHeader)
                 .then((response) => {
                     console.log(response.status)
                     if (response.ok){
+                        console.log('Response ok');
                         response.json()
-                        console.log('Response ok')
                         .then((responseJson) => {
                             dispatch(sportsSuccess(responseJson))
                         });

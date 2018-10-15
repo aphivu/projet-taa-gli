@@ -1,4 +1,5 @@
 //import fetch from 'cross-fetch'
+import fetch from 'cross-fetch'
 import {apiUrl} from '../../requests/utils'
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -38,16 +39,17 @@ export function login(username,password){
         const loginHeader = {
             method: 'POST',
             headers: {
-              'Authorization': 'Basic '+ btoa(username+':'+password),
+              'Authorization': 'Basic '+ btoa(username + ':' + password)
             }
         }
-        console.log(username + " " + password)
+
         return fetch(apiUrl + '/loginApp',loginHeader)
                 .then((response) => {
                     if (response.ok){
                         response.json()
                         .then((responseJson) => {
                             if (responseJson){
+                                console.log("response ok")
                                 dispatch(loginSucess(username,password))
                             }
                             else {

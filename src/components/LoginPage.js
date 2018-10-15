@@ -24,12 +24,13 @@ export default class LoginPage extends React.Component {
     }
 
       render() {
-       const authenticated = this.props.user.authenticated;
+      //console.log(this.props)
+       const authenticated = this.props.authenticated;
 
         if (authenticated){
-          console.log("authenticated")
+          console.log("Redirection to /")
             return (
-              <Redirect to='/home' />
+              <Redirect to='/' />
             )
         }
       

@@ -2,13 +2,15 @@ import React from 'react'
 
 export default class HomePage extends React.Component{
 
-    componentDidMount(){
-        console.log("Componentdidmount")
-        //this.props.getSports();
+    componentWillMount(){
+        console.log("Will Mount")
+        console.log(this.props)
+        this.props.getSports(this.props.user);
     }
 
     render(){
-
+        console.log("Home render")
+        console.log(this.props.sports);
         const sports = this.props.sports;
         return (
             <div>
@@ -16,6 +18,10 @@ export default class HomePage extends React.Component{
                     Home
                 </h1>
                 <ul>
+                    <h2>Sport list</h2>
+                    {sports.map(sport =>
+                    <li>{sport.name}</li>
+                    )}
                 </ul>
             </div>
         )

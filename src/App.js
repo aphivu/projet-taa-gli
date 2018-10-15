@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom' 
+import { Link, Route } from 'react-router-dom' 
+import HomePageContainer from './redux/containers/HomePageContainer';
 
 class App extends Component {
-
-  constructor(props){
-    super(props);
-    this.state = { authenticated: this.props.authenticated}
-  }
   
   renderLogin = () => {
-    if (!this.state.authenticated) {
-      return <Link to="/login"><button>Login</button></Link>
-    }
+    return (!this.props.isAuthed) ? 
+      <Link to="/login"><button>Login</button></Link> :
+      <button>Logout</button>
   }
+
   
   render() {
 
+    console.log("App render")
     return (
       <div className="App">
         <header>
@@ -26,8 +24,23 @@ class App extends Component {
 
         <hr />
         
+        {this.content()}
+        
       </div>
     );
+  }
+
+  content() {
+    if (this.props.isAuthed){
+      return (
+        <HomePageContainer />
+      )
+    }
+    return (
+      <h1>
+          Welcome to TAA Week-end
+        </h1>
+    )
   }
 }
 
