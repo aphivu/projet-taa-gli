@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import '../App.css';
 
 
 export default class LoginPage extends React.Component {
@@ -36,7 +37,7 @@ export default class LoginPage extends React.Component {
       
         return (
     
-            <div>
+            <div className="App">
               <h1>Login </h1>
               <form onSubmit={this.handleSubmit}>
                 <p>Username: </p>
