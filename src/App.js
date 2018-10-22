@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux'
-import { Link, Route } from 'react-router-dom' 
+import { Link } from 'react-router-dom' 
 import HomePageContainer from './redux/containers/HomePageContainer';
+import LogoutComponentContainer from './redux/containers/LogoutComponentContainer';
 
 class App extends Component {
   
   renderLogin = () => {
-    return (!this.props.isAuthed) ? 
+    return (!this.props.authenticated) ? 
       <Link to="/login"><button>Login</button></Link> :
-      <button>Logout</button>
+      <LogoutComponentContainer />
   }
 
   
   render() {
 
     console.log("App render")
+    
     return (
       <div className="App">
         <header>
@@ -31,7 +33,7 @@ class App extends Component {
   }
 
   content() {
-    if (this.props.isAuthed){
+    if (this.props.authenticated){
       return (
         <HomePageContainer />
       )

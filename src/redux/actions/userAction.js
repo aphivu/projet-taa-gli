@@ -1,4 +1,3 @@
-//import fetch from 'cross-fetch'
 import fetch from 'cross-fetch'
 import {apiUrl} from '../../requests/utils'
 
@@ -6,8 +5,11 @@ const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
+const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-export function loginRequest(username,password){
+
+
+function loginRequest(username,password){
     return {
         type: LOGIN_REQUEST,
         username: username,
@@ -15,7 +17,7 @@ export function loginRequest(username,password){
     }
 }
 
-export function loginSucess(username, password){
+function loginSucess(username, password){
     return {
         type: LOGIN_SUCCESS,
         username:username,
@@ -23,11 +25,13 @@ export function loginSucess(username, password){
     }
 }
 
-export function loginFailure(){
+function loginFailure(){
     return {
         type: LOGIN_FAILURE 
     }
 }
+
+
 
 export function login(username,password){
     console.log("Login");
@@ -66,4 +70,23 @@ export function login(username,password){
                     }
                 )
     }
+}
+
+function logoutSucess(){
+    return { 
+        type : LOGOUT_SUCCESS
+    }
+}
+
+
+export function logout(){
+    console.log("Logout");
+
+    return function (dispatch){
+
+        dispatch(logoutSucess())
+
+    }
+
+
 }

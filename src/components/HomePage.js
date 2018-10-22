@@ -35,6 +35,7 @@ export default class HomePage extends React.Component{
 
     render(){
         console.log("Home render")
+        console.log(this.props.user)
         console.log(this.props.sports);
         const sports = this.props.sports;
         console.log(this.props.activities);

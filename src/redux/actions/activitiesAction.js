@@ -107,6 +107,7 @@ export function postActivity(username,password,sport,localisation){
                     console.log(response.status)
                     if (response.ok){
                         dispatch(postActivitySuccess())
+                        dispatch(getActivities(username,password))
                     } else {
                         dispatch(postActivityFailure())
                     }        

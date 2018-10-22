@@ -5,27 +5,25 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
 import { BrowserRouter as Router, Route} from "react-router-dom";
+import { PersistGate } from 'redux-persist/integration/react';
 
-import configureStore from './redux/store/configureStore'
+import { store, persistore } from './redux/store/configureStore'
 import LoginPageContainer from './redux/containers/LoginPageContainer';
-
-const store = configureStore();
-
-console.log(store.getState())
 
 ReactDOM.render(
     <Provider store={store}>
-         <Router>
-            <div>
-                <Route 
-                    exact path='/' 
-                    render={(props) => 
-                    <App {...props} isAuthed={store.getState().user.authenticated} />} 
-                /> 
-                <Route path='/login' component = {LoginPageContainer}/>
-            </div>
-            
-        </Router>
+        <PersistGate loading={null} persistor={persistore}>
+            <Router>
+                <div>
+                    <Route 
+                        exact path='/' 
+                        render={(props) => 
+                        <App />} 
+                    /> 
+                    <Route path='/login' component = {LoginPageContainer}/>
+                </div>
+            </Router>
+        </PersistGate>
     </Provider>
     , document.getElementById('root')
 );
