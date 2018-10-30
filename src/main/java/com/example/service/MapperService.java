@@ -1,7 +1,7 @@
 package com.example.service;
 
 /**
- * Contract for service --> handle mapping between entity and dto
+ * Contract for service -- handle mapping between entity and dto
  * @param <E> Entity to map
  * @param <D> Matching DTO
  */

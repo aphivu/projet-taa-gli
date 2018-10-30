@@ -82,14 +82,8 @@ public class UserService extends UserDetailsServiceImpl implements IUserService 
 
     @Override
     public User removeActivity(String username, long id) {
-        User user = getUserByUsername(username);
-        for(Activite activite:user.getActivites()){
-            if (activite.getId() == id){
-                user.getActivites().remove(activite);
-                user.getActivites().remove(activiteService.removeActiviteById(id));
-            }
-        }
-        return user;
+        activiteService.removeActiviteById(id);
+        return getUserByUsername(username);
     }
 
     @Override

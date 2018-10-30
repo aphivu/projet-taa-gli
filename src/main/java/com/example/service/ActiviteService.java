@@ -57,6 +57,7 @@ public class ActiviteService implements IActiviteService {
         if(activiteRepository.existsById(id)){
             Activite a = activiteRepository.getOne(id);
             activiteRepository.deleteById(id);
+            System.out.println("ActiviteService:DeleteByid | id:" + id);
             return a;
         }
         return null;
