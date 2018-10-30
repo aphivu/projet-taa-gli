@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import HomePage from '../../components/HomePage'
 import { getSports } from '../actions/sportsActions'
-import { getActivities, postActivity } from '../actions/activitiesAction'
+import { getActivities, postActivity, deleteActivity } from '../actions/activitiesAction'
 import { getLocalisations } from '../actions/localisationAction'
 
 const HomePageContainer = (props) => (
@@ -13,7 +13,8 @@ const HomePageContainer = (props) => (
         getActivities = {props.getActivities}
         getSports = {props.getSports}
         getLocalisations = {props.getLocalisations}
-        postActivity = {props.postActivity} 
+        postActivity = {props.postActivity}
+        deleteActivity = {props.deleteActivity} 
     />
 )
 
@@ -37,6 +38,9 @@ const mapDispatchToProps = dispatch => {
         },
         postActivity: (user, sport, localisation) => {
             dispatch(postActivity(user.username,user.password,sport,localisation))
+        },
+        deleteActivity: (user, activity) => {
+            dispatch(deleteActivity(user.username,user.password,activity))
         }
     }
 }

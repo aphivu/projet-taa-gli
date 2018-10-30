@@ -1,7 +1,8 @@
 const initialState = { 
     activities: [],
     isFetchingActivities: false,
-    isPostingActivity: false    
+    isPostingActivity: false  ,
+    isDeletingActivity: false  
 }
 
 export function activities(state=initialState,action){
@@ -46,6 +47,24 @@ export function activities(state=initialState,action){
         case 'POST_ACTIVITY_FAILURE': {
             return Object.assign({}, state, {
                 isPostingActivity:false
+            })
+        }
+
+        case 'DELETE_ACTIVITY_REQUEST':{
+            return Object.assign({}, state, {
+                isDeletingActivity:true
+            })
+        }
+
+        case 'DELETE_ACTIVITY_SUCCESS':{
+            return Object.assign({}, state, {
+                isDeletingActivity:false
+            })
+        }
+
+        case 'DELETE_ACTIVITY_FAILURE':{
+            return Object.assign({}, state, {
+                isDeletingActivity:false
             })
         }
 

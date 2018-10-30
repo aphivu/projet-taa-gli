@@ -33,6 +33,11 @@ export default class HomePage extends React.Component{
         this.setState({localisation:e.target.value})
     }
 
+    handleDelete = (e) => {
+        e.preventDefault();
+        this.props.deleteActivity(this.props.user,e.target.name)
+    }
+
     render(){
         console.log("Home render")
         console.log(this.props.user)
@@ -41,7 +46,6 @@ export default class HomePage extends React.Component{
         console.log(this.props.activities);
         const activities = this.props.activities;
         const localisations = this.props.localisations;
-        console.log(localisations);
         return (
             <div className="App">
                 <h1>
@@ -67,6 +71,9 @@ export default class HomePage extends React.Component{
                         <td>
                             {activity.localisation.ville}
                         </td>
+                        <td className="tdDelete">
+                            <input type="button" className="deleteActivity" name={activity.id} value="X" onClick={this.handleDelete}/>
+                        </td>
                     </tr>
                     )}
                    
@@ -75,12 +82,14 @@ export default class HomePage extends React.Component{
                     <div className="AddActivity">
                         <span>
                             <select className="selectActivity" onChange={this.handleSport}>
+                            <option value="" disabled selected>Sport</option>
                                 {sports.map(sport =>
                                     <option value={sport.name}>{sport.name}</option>
                                 )}
                             </select>
                             &nbsp;
-                            <select className="selectActivity" onChange={this.handleLocalisation}>
+                            <select name="Localisation" className="selectActivity" onChange={this.handleLocalisation}>
+                                <option value="" disabled selected>Localisation</option>
                                 {localisations.map(localisation =>
                                     <option value={localisation.ville}>{localisation.ville}</option>
                                 )}

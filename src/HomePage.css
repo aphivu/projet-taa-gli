@@ -31,3 +31,13 @@ th {
     padding-left: 0px;
     text-align: left;
 }
+
+.deleteActivity {
+    background-color: #f44336;
+    color: white;
+}
+
+.tdDelete {
+    background-color: white;
+    padding: 0%;
+}
