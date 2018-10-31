@@ -17,8 +17,8 @@ public class Activite {
     private Sport sport;
     private Localisation localisation;
 
-    @Enumerated(EnumType.STRING)
-    private Niveau niveau;
+    /*@Enumerated(EnumType.STRING)
+    private Niveau niveau;*/
 
     public Activite(){}
     public Activite(Sport sport, Localisation localisation){
@@ -54,11 +54,11 @@ public class Activite {
         this.localisation = localisation;
     }
 
-    public Niveau getNiveau() {
+    /*public Niveau getNiveau() {
         return niveau;
     }
 
     public void setNiveau(Niveau niveau) {
         this.niveau = niveau;
-    }
+    }*/
 }
