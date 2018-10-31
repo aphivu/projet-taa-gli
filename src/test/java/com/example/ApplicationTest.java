@@ -4,6 +4,7 @@ import com.example.dto.ActiviteDTO;
 import com.example.dto.LocalisationDTO;
 import com.example.dto.SportDTO;
 import com.example.dto.UserDTO;
+import com.example.entity.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -163,7 +164,7 @@ public class ApplicationTest {
     @Test
     public void postSportSuccess() throws Exception {
 
-        SportDTO dto = new SportDTO("Surf");
+        SportDTO dto = new SportDTO("Surf", Environment.OUTSIDE);
         this.mockMvc.perform(post("/admin/addSport")
                 .with(httpBasic(validAdmin,validPwd))
                 .contentType(MediaType.APPLICATION_JSON)

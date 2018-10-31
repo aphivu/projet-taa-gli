@@ -28,11 +28,10 @@ public class ScheduledTasks {
 
     @Autowired
     private IEmailService emailService;
-
+/*
     @Scheduled(fixedRate = 100000)
     public void reportCurrentTime() throws APIException {
 
-        /*OWN JAPIS*/
         OWM owm = new OWM(key);
         owm.setUnit(OWM.Unit.METRIC);
         String content = "Weather informations for all activities: ";
@@ -50,5 +49,5 @@ public class ScheduledTasks {
 
         emailService.sendSimpleMessage(content);
 
-    }
+    }*/
 }

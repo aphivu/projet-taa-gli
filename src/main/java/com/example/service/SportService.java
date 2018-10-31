@@ -20,7 +20,7 @@ public class SportService implements ISportService{
 
     @Override
     public Sport mapToEntity(SportDTO dto) {
-        return new Sport(dto.getName());
+        return new Sport(dto.getName(),dto.getEnvironment());
     }
 
     @Override

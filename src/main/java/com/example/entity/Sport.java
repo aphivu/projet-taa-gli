@@ -19,9 +19,9 @@ public class Sport {
     private String name;
 
     /*@Enumerated(EnumType.STRING)
-    private Surface surface;
+    private Surface surface;*/
     @Enumerated(EnumType.STRING)
-    private Environnement environnement;*/
+    private Environment environment;
 
     public Sport(){
     }
@@ -30,6 +30,10 @@ public class Sport {
         this.name = name;
     }
 
+    public Sport (String name, Environment environment){
+        this.name = name;
+        this.environment = environment;
+    }
     @Id
     @GeneratedValue
     public long getId() {
@@ -48,22 +52,12 @@ public class Sport {
         this.name = name;
     }
 
-   /* public Surface getSurface() {
-        return surface;
+    public Environment getEnvironment() {
+        return environment;
     }
 
-    public void setSurface(Surface surface) {
-        this.surface = surface;
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
-
-    public Environnement getEnvironnement() {
-        return environnement;
-    }
-
-    public void setEnvironnement(Environnement environnement) {
-        this.environnement = environnement;
-    }*/
-
-
 }
 
