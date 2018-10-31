@@ -1,6 +1,7 @@
 package com.example.notification;
 
 import com.example.entity.Activite;
+import com.example.entity.Environment;
 import com.example.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,8 +29,8 @@ public class ScheduledTasks {
 
     @Autowired
     private IEmailService emailService;
-/*
-    @Scheduled(fixedRate = 100000)
+
+    @Scheduled(cron = "0 16 17 * * WED")
     public void reportCurrentTime() throws APIException {
 
         OWM owm = new OWM(key);
@@ -44,10 +45,15 @@ public class ScheduledTasks {
                     " Temp: " + cwd.getMainData().getTemp() +
                     " Rain: " + cwd.hasRainData() +
                     " Wind: " + cwd.getWindData().component1();
+            if(a.getSport().getEnvironment() == Environment.OUTSIDE){
+                if (cwd.hasRainData()){
+                    content += "Avoid it is raining";
+                }
+            }
         }
 
 
         emailService.sendSimpleMessage(content);
 
-    }*/
+    }
 }
