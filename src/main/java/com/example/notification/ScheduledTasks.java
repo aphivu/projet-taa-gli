@@ -3,6 +3,9 @@ package com.example.notification;
 import com.example.entity.Activite;
 import com.example.entity.Environment;
 import com.example.service.IUserService;
+import net.aksingh.owmjapis.model.DailyWeatherForecast;
+import net.aksingh.owmjapis.model.HourlyWeatherForecast;
+import net.aksingh.owmjapis.model.param.WeatherData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,7 +24,6 @@ import net.aksingh.owmjapis.model.CurrentWeather;
 @Component
 public class ScheduledTasks {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private static final String key = "8cd51d6739fbdc1f88fc2f828a4fdedd";
 
     @Autowired
@@ -30,7 +32,8 @@ public class ScheduledTasks {
     @Autowired
     private IEmailService emailService;
 
-    @Scheduled(cron = "0 16 17 * * WED")
+    //@Scheduled(cron = "0 0 18 * * WED")
+    @Scheduled(fixedRate = 10000)
     public void reportCurrentTime() throws APIException {
 
         OWM owm = new OWM(key);
@@ -38,22 +41,38 @@ public class ScheduledTasks {
         String content = "Weather informations for all activities: ";
 
         for(Activite a : userService.getUserByUsername("user").getActivites()){
-            CurrentWeather cwd = owm.currentWeatherByCityName(a.getLocalisation().getVille());
 
-            content += System.getProperty("line.separator") +
-                    " City: " + cwd.getCityName() +
-                    " Temp: " + cwd.getMainData().getTemp() +
-                    " Rain: " + cwd.hasRainData() +
-                    " Wind: " + cwd.getWindData().component1();
-            if(a.getSport().getEnvironment() == Environment.OUTSIDE){
-                if (cwd.hasRainData()){
-                    content += "Avoid it is raining";
-                }
-            }
+            HourlyWeatherForecast hwf = owm.hourlyWeatherForecastByCityName(a.getLocalisation().getVille());
+
+            /**
+             * Weather every 3h for 5 days
+             * If asked a 7:00pm
+             * 8 * 3 - 2 for Saturday 12:00am
+             */
+            WeatherData forecastData = hwf.component5().get(8*3-2);
+
+            content += System.getProperty("line.separator");
+            content += "**********************************";
+            content += System.getProperty("line.separator");
+            content += a.getSport().getName() + " at " + a.getLocalisation().getVille() + ": ";
+            content += System.getProperty("line.separator");
+            content += "Status : " + forecastData.getWeatherList().get(0).getMainInfo();
+            content += System.getProperty("line.separator");
+            content += "Temperature: " + forecastData.getMainData().getTemp() + "°C";
+            content += System.getProperty("line.separator");
+            content += "Remark: ";
+
+            content += (a.getSport().getEnvironment() == Environment.OUTSIDE &&
+                    forecastData.getWeatherList().get(0).getMainInfo().equals("Rain")) ?
+                    "BE CAREFUL IT IS RAINING! " : "ENJOY! ";
+
+            content += System.getProperty("line.separator");
+
         }
 
+        System.out.println(content);
 
-        emailService.sendSimpleMessage(content);
+        //emailService.sendSimpleMessage(content);
 
     }
 }

@@ -13,11 +13,11 @@ public class EmailService implements IEmailService{
     private JavaMailSender emailSender;
 
     @Override
-    public void sendSimpleMessage(String content){
+    public void sendSimpleMessage(String to, String content){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject("Week-end Notification");
         message.setText(content);
-        message.setTo("vap3101@gmail.com");
+        message.setTo(to);
         message.setFrom("no-reply@gmail.com");
 
         emailSender.send(message);
