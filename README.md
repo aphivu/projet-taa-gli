@@ -1,2 +1,3 @@
-# projetTaa
-version du projet en utilisant Spring boot
+# Projet TAA
+Back-end du projet en TAA avec SPRINGBOOT
+
