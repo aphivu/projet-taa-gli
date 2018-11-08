@@ -47,6 +47,7 @@ export function login(username,password){
             }
         }
 
+        console.log(apiUrl)
         return fetch(apiUrl + '/loginApp',loginHeader)
                 .then((response) => {
                     if (response.ok){
