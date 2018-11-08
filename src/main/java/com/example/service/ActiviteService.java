@@ -3,17 +3,12 @@ package com.example.service;
 import com.example.dto.ActiviteDTO;
 import com.example.entity.Activite;
 import com.example.entity.Localisation;
-import com.example.entity.Personne;
 import com.example.entity.Sport;
 import com.example.repository.ActiviteRepository;
 import com.example.repository.LocalisationRepository;
-import com.example.repository.PersonneRepository;
 import com.example.repository.SportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ActiviteService implements IActiviteService {

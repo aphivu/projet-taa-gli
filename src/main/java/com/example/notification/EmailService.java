@@ -9,6 +9,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 @Service
 public class EmailService implements IEmailService{
 
+    /**
+     * Using spring boot mail dependency
+     */
     @Autowired
     private JavaMailSender emailSender;
 

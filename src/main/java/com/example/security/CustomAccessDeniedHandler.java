@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Configuration of the Access denied response
+ */
+
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 

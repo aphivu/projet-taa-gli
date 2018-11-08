@@ -10,6 +10,10 @@ import javax.persistence.Id;
 /**
  * Localisation entity
  * store informations of activity localisation
+ *
+ * JsonIgnoreProperties added to avoid
+ * org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer
+ * when Jackson try to JSON-ify proxied Localisation
  */
 
 @Entity

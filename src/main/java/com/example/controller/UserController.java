@@ -72,6 +72,11 @@ public class UserController {
         return localisationService.getLocalisations();
     }
 
+    /**
+     * Get the whole information about a specific localisation
+     * @param ville: which city to get
+     * @return Localisation entity
+     */
     @GetMapping("localisations/{ville}")
     public Localisation getLocalisationByVille(@PathVariable String ville){
         return localisationService.getLocalisationByVille(ville);

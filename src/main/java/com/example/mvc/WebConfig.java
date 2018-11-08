@@ -7,6 +7,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * Web config mainly to prevent CORS exception
+ * In Development: Authorize all request from port 3000 (FrontEnd call)
+ */
 @Configuration
 public class WebConfig {
 

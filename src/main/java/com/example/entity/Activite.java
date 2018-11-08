@@ -5,7 +5,10 @@ import javax.persistence.*;
 
 /**
  * Activite Entity class
- * Store informations about an activity
+ * Store information about an activity
+ * JsonIgnoreProperties added to avoid
+ * org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer
+ * Jackson try to JSON-ify proxy
  */
 
 

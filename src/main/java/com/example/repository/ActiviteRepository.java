@@ -12,6 +12,4 @@ import java.util.List;
 @Transactional
 public interface ActiviteRepository extends JpaRepository<Activite, Long> {
 
-    /*@Query(value = "SELECT a from Activite a WHERE a.personne.id=:pid AND a.sport.id=:sid AND a.localisation.id=:lid")
-    public Activite getActiviteByAllId(@Param("pid") long pid,@Param("sid") long sid,@Param("lid") long lid);*/
 }

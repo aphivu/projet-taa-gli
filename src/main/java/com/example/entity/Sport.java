@@ -7,8 +7,11 @@ import javax.persistence.*;
 
 
 /**
- * sport entity
- * store information about sport activity
+ * Sport entity
+ *
+ * JsonIgnoreProperties added to avoid
+ *  org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer
+ *  when Jackson try to JSON-ify proxy
  *
  */
 @Entity
@@ -18,8 +21,6 @@ public class Sport {
     private long id;
     private String name;
 
-    /*@Enumerated(EnumType.STRING)
-    private Surface surface;*/
     @Enumerated(EnumType.STRING)
     private Environment environment;
 

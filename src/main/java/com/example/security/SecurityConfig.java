@@ -12,6 +12,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
+/**
+ *
+ * Configuration of Authenticationa and authorization with Spring Security
+ * Here we implemented a Basic authentication
+ */
 
 @Configuration
 @EnableWebSecurity

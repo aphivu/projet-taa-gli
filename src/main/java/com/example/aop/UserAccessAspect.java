@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+/**
+ * For now, Aspect is added to check what service method is called by who
+ */
 
 @Aspect
 @Configuration

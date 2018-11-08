@@ -42,6 +42,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 return auths;
             }
 
+            /**
+             * {noop}: to enable the default spring encoding
+             * @return
+             */
             @Override
             public String getPassword() {
                 return "{noop}" + user.getPassword(); //not safe -> no encoding pwd
