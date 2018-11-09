@@ -1,0 +1,52 @@
+version: '3'
+
+services: 
+
+  nginx:
+    container_name: nginx-react-docker
+    image: nginx-react
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+
+  mysql:
+    container_name: docker-mysql
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db-taa
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    restart: always
+
+  taa-api:
+    container_name: docker-taa
+    restart: always
+    image: spring-boot-taa
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      - DATABASE_HOST=docker-mysql
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=db-taa  
+      - DATABASE_PORT=3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+    ports:
+     - '8081:80'
+
+
