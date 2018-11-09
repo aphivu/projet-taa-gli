@@ -11,7 +11,17 @@ L'objectif du projet est de réaliser une application de gestion de week-ends. L
 
 # Ce qui est à réaliser
 
-# Commandes pour le déploiement
+# Installation
+
+
+
+```sh
+$ mvn install docker:build
+$ npm run-script build
+$ docker-compose up
+```
+
+Pour la production : 
 
 
 
