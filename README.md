@@ -26,7 +26,11 @@ Pour la production :
 
 Requête :
 
+
+```sh
 $ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addSport --data '{"name":"Belote","environment":"INSIDE"}'
+```
+
 
 
 
