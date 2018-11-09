@@ -54,7 +54,7 @@ N.B. Voir le fichier design.md pour plus d'informations sur l'architecture de l'
 La commande suivante permet de construire l'image de notre backend dans le repertoire /backend :
 
 ```sh
-$ mvn install docker:build
+$ mvn install docker:build -DskipTests
 
 // le nom de l'image sera le nom du projet : spring-boot-taa
 ```
