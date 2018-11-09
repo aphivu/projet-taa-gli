@@ -73,7 +73,7 @@ public class ScheduledTasks {
             content += System.getProperty("line.separator");
             content += "**********************************";
             content += System.getProperty("line.separator");
-            content += a.getSport().getName() + " at " + a.getLocalisation().getVille();
+            content += a.getSport().getName() + " at " + a.getLocalisation().getVille() + " ";
             content += forecastData.getDateTime().toString()  + ": ";
             content += System.getProperty("line.separator");
             content += "Status : " + forecastData.getWeatherList().get(0).getMainInfo();
