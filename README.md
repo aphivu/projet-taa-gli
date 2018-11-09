@@ -56,13 +56,13 @@ La commande suivante permet de construire l'image de notre backend dans le reper
 ```sh
 $ mvn install docker:build -DskipTests
 
-// le nom de l'image sera le nom du projet : spring-boot-taa
+// le nom de l'image sera le nom du projet : spring-boot-taa/myproject
 ```
 
 Les commandes suivantes permettent de construire nos fichiers statiques, puis de les disposer sur un serveur nginx dans le repertoire /frontend/React :
 ```sh
 $ npm run-script build // pour construire les fichiers statiques
-$ docker build -f Dockerfile -t nginx-react . // Construit une image docker du server nginx avec les fichiers statiques
+$ docker build -t nginx-react . // Construit une image docker du server nginx avec les fichiers statiques
 ```
 
 La commande suivante permet d'executer le docker-compose pour déployer l'ensemble de nos serveurs (à exécuter à la racine du projet) :
