@@ -25,7 +25,7 @@ hs_err_pid*
 
 #what is in target and idea folders
 /target
-/.idea
+.idea/
 
 
 =======
