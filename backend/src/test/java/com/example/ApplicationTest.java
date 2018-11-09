@@ -62,7 +62,7 @@ public class ApplicationTest {
 
     @Test
     public void getDetailsFail() throws  Exception {
-        this.mockMvc.perform(get("/user/details")
+        this.mockMvc.perform(get("api/user/details")
                 .with(httpBasic("invalid",validPwd)))
                 .andExpect(status().is(401));
 
@@ -122,7 +122,7 @@ public class ApplicationTest {
         this.mockMvc.perform(get("/user/localisations/Rennes")
                 .with(httpBasic(validUser,validPwd)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.region").value("Bretagne"));
+                .andExpect(jsonPath("$.ville").value("Rennes"));
     }
 
     @Test
@@ -181,7 +181,7 @@ public class ApplicationTest {
 
     @Test
     public void postLocalisationSuccess() throws Exception {
-        LocalisationDTO dto = new LocalisationDTO("Nantes","Pays de la Loire");
+        LocalisationDTO dto = new LocalisationDTO("Nantes","Fr");
         this.mockMvc.perform(post("/admin/addLocalisation")
                 .with(httpBasic(validAdmin,validPwd))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -191,7 +191,7 @@ public class ApplicationTest {
 
     @Test
     public void postLocalisationFail() throws Exception {
-        LocalisationDTO dto = new LocalisationDTO("Nantes","Pays de la Loire");
+        LocalisationDTO dto = new LocalisationDTO("Nantes","Fr");
         this.mockMvc.perform(post("/admin/addLocalisation")
                 .with(httpBasic(validUser,validPwd))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -200,17 +200,6 @@ public class ApplicationTest {
     }
 
 
-    /*@Test
-    public void postActivity() throws Exception {
-        ActiviteDTO dto = new ActiviteDTO("Tennis","Rennes");
-        this.mockMvc.perform(post("/user/activities/add")
-                .with(httpBasic(validUser,validPwd))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(dto)))
-                .andExpect(status().isOk());
-    }*/
-
-    // DELETE
     /**
      * TODO: Implement Delete request test
      */
