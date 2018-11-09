@@ -21,15 +21,17 @@ Pour la gestion des dépendances et le packaging, maven est utilisé côté back
 
 Le déploiement de l'application se fait avec Docker.
 
-# Ce qui est fonctionnel
+# Fonctionnalités supportées
 
 Pour le moment un utilisateur, après s'être authentifié, peut accéder à ses activités, en ajouter ou en supprimer. Il a accès à la liste des sports et localisations disposées dans la base de données. 
 
 L'API côté backend peut recevoir l'ensemble des requêtes nécessaires pour traiter, un ajout/une suppression d'un utilisateur, d'un sport, d'une localisation et d'une activité à condition d'identifier un utilisateur ayant le rôle adéquat (seul le rôle admin peut modifier les sports et localisations).
 
+Les test unitaires permettent d'observer rapidement le statut des réponses données par le serveur pour l'ensemble des services proposés en fonction des URI et arguments donnés. 
+
 Le service de requêtes vers une API météo nous permet bien de recueillir les informations relatives aux activités stockées en base de données. Ce service est implémenté au sein d'une méthode @Scheduled qui permet d'envoyer un mail de notification tous les mercredis avec les recommandations pour le week-end.
 
-# Ce qu'il reste à réaliser
+# Fonctionnalités à développer
 Côté frontend :
  - un service d'inscription : un formulaire à remplir pour envoyer une requête à l'API Rest qui va ajouter un utilisateur dans la base de données.
  - un service d'administration : si l'utilisateur est authentifié avec le role d'admin, il pourra modifier la liste des sports et celles des localisations
@@ -60,7 +62,7 @@ $ mvn install docker:build
 Les commandes suivantes permettent de construire nos fichiers statiques, puis de les disposer sur un serveur nginx dans le repertoire /frontend/React :
 ```sh
 $ npm run-script build // pour construire les fichiers statiques
-$ docker build -f Dockerfile -t nginx-react.
+$ docker build -f Dockerfile -t nginx-react. // Construit une image docker du server nginx avec les fichiers statiques
 ```
 
 La commande suivante permet d'executer le docker-compose pour déployer l'ensemble de nos serveurs (à exécuter à la racine du projet) :
