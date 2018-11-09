@@ -1,6 +1,5 @@
 com/example/service/ActiviteService.class
 com/example/entity/Niveau.class
-com/example/repository/PersonneRepository.class
 com/example/aop/UserAccessAspect.class
 com/example/controller/LoginController.class
 com/example/service/LocalisationService.class
@@ -27,7 +26,6 @@ com/example/repository/UserRepository.class
 com/example/service/IActiviteService.class
 com/example/service/UserDetailsServiceImpl.class
 com/example/entity/Sport.class
-com/example/entity/Personne.class
 com/example/service/IUserService.class
 com/example/repository/ActiviteRepository.class
 com/example/service/UserService.class

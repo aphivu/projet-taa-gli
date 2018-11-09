@@ -27,7 +27,7 @@ services:
   taa-api:
     container_name: docker-taa
     restart: always
-    image: spring-boot-taa
+    image: spring-boot-taa/myproject
     ports: 
       - "8080:8080"
     depends_on:
