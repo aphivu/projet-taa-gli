@@ -60,7 +60,6 @@ $ mvn install docker:build -DskipTests
 Les commandes suivantes permettent de construire nos fichiers statiques, puis de les disposer sur un serveur nginx dans le repertoire /frontend/React :
 ```sh
 $ npm run build // pour construire les fichiers statiques 
-$ docker build -t nginx-react . // Construit une image docker du server nginx avec les fichiers statiques
 ```
 
 La commande suivante permet d'executer le docker-compose pour déployer l'ensemble de nos serveurs (à exécuter à la racine du projet) :

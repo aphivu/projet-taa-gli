@@ -4,13 +4,16 @@ services:
 
   nginx:
     container_name: nginx-react-docker
-    image: nginx-react
+    image: nginx
     restart: always
     ports:
       - 80:80
       - 443:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./frontend/React/build:/usr/share/nginx/html
+    links: 
+      - taa-api
 
   mysql:
     container_name: docker-mysql
@@ -29,16 +32,15 @@ services:
     restart: always
     image: spring-boot-taa/myproject
     ports: 
-      - "8080:8080"
-    depends_on:
-      - mysql
-      - nginx
+      - "8080:8080"      
     environment:
       - DATABASE_HOST=docker-mysql
       - DATABASE_USER=user
       - DATABASE_PASSWORD=password
       - DATABASE_NAME=db-taa  
       - DATABASE_PORT=3306
+    depends_on: 
+      - mysql 
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
