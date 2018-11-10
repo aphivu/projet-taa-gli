@@ -77,6 +77,7 @@ Exemple de requête pour ajouter un sport et une localisation en tant qu'admin :
 
 ```sh
 $ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addSport --data '{"name":"Belote","environment":"INSIDE"}'
+$ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addSport --data '{"name":"Paddle","environment":"OUTSIDE"}'
 $ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addLocalisation --data '{"region":"Fr","ville":"Rennes"}'
 
 ```
