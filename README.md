@@ -39,8 +39,6 @@ Côté backend :
 
 # Installation
 
-Voici les étapes à suivre pour déployer l'application : 
-
 Le déploiement se fait grâce à docker-compose qui va associer 4 containers :
  - Un docker mysql
  - Un docker phpmyadmin
@@ -49,39 +47,34 @@ Le déploiement se fait grâce à docker-compose qui va associer 4 containers :
 
 N.B. Voir le fichier design.md pour plus d'informations sur l'architecture de l'application.
 
-La commande suivante permet de construire l'image de notre backend dans le repertoire /backend :
-
+Pour déployer l'application à partir du répertoire cloné :
+ 
 ```sh
+\# Construction de l'image docker du backend
+$ cd backend
 $ mvn install docker:build -DskipTests
 
-// le nom de l'image sera le nom du projet : spring-boot-taa/myproject
-```
+\# Packaging des fichiers statiques du frontend
+$ cd ../frontend/React
+$ npm run build
 
-Les commandes suivantes permettent de construire nos fichiers statiques, puis de les disposer sur un serveur nginx dans le repertoire /frontend/React :
-```sh
-$ npm run build // pour construire les fichiers statiques 
-```
-
-La commande suivante permet d'executer le docker-compose pour déployer l'ensemble de nos serveurs (à exécuter à la racine du projet) :
-
-```sh
+\# Execution du docker-compose
+$ cd ../../
 $ docker-compose up
-// parfois nginx ne démarre pas correctement, relancer docker-compose up 
-// Pas encore trouvé où était la mauvaise configuration
+
 ```
 
 L'application démarre et est accéssible sur ``` http://localhost/```.
 
 Après le premier lancement, la base de données est vide. Importer le fichier ```sh db-init-test.sql``` pour nourir la base de données et tester l'application. Phpmyadmin est accéssible sur le port 8081. 
 
+Une fois la base de données nourrie, il est possible de s'authentifier et gérer nos activités du week-end sur ``` http://localhost/```. 
 
 Exemple de requête pour ajouter un sport en tant qu'admin :
 
 ```sh
 $ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addSport --data '{"name":"Belote","environment":"INSIDE"}'
 ```
-
-Une fois la base de données nourries, il est possible de s'authentifier et gérer nos activités du week-end sur ``` http://localhost/```.
 
 
 
