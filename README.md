@@ -49,16 +49,16 @@ N.B. Voir le fichier design.md pour plus d'informations sur l'architecture de l'
 
 Pour déployer l'application à partir du répertoire cloné :
  
-```sh
-\# Construction de l'image docker du backend
+```
+# Construction de l'image docker du backend
 $ cd backend
 $ mvn install docker:build -DskipTests
 
-\# Packaging des fichiers statiques du frontend
+# Packaging des fichiers statiques du frontend
 $ cd ../frontend/React
 $ npm run build
 
-\# Execution du docker-compose
+# Execution du docker-compose
 $ cd ../../
 $ docker-compose up
 
