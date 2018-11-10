@@ -66,15 +66,18 @@ $ docker-compose up
 
 L'application démarre et est accéssible sur ``` http://localhost/```.
 
-Après le premier lancement, la base de données est vide. Importer le fichier ``` db-init-test.sql``` pour nourir la base de données et tester l'application. Phpmyadmin est accéssible sur le port 8081. 
-
-Une fois la base de données nourrie, il est possible de s'authentifier et gérer nos activités du week-end sur ``` http://localhost/```. 
+Après le premier lancement, la base de données est vide.
 
 Exemple de requête pour ajouter un sport en tant qu'admin :
 
 ```sh
 $ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addSport --data '{"name":"Belote","environment":"INSIDE"}'
+
 ```
+
+Une fois la base de données nourrie, il est possible de s'authentifier et gérer nos activités du week-end sur ``` http://localhost/```. 
+
+
 
 
 
