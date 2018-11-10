@@ -9,7 +9,7 @@ Un système d'authentification est pourvu afin d'assurer à l'utilisateur que lu
 # Technologies utilisées
 
 Côté backend, l'application est fondée sur le socle Spring boot pour faciliter la construction de notre API Rest. Au delà du coeur de Spring, le projet dispose des modules suivants : 
- - Spring Data Jpa avec Hibernate : Gestion de la persistance des données
+ - Spring Data Jpa avec Hibernate : Gestion de la persistance des données et mapping relationnel avec la base de données
  - Spring AOP : Réalisation d'une programmation par Aspect
  - Spring Security : Gestion des authentifications et authorisations
  - Spring Email : Envoie des messages
@@ -26,8 +26,6 @@ Le déploiement de l'application se fait avec Docker.
 Pour le moment un utilisateur, après s'être authentifié, peut accéder à ses activités, en ajouter ou en supprimer. Il a accès à la liste des sports et localisations disposées dans la base de données. 
 
 L'API côté backend peut recevoir l'ensemble des requêtes nécessaires pour traiter, un ajout/une suppression d'un utilisateur, d'un sport, d'une localisation et d'une activité à condition d'identifier un utilisateur ayant le rôle adéquat (seul le rôle admin peut modifier les sports et localisations).
-
-Les test unitaires permettent d'observer rapidement le statut des réponses données par le serveur pour l'ensemble des services proposés en fonction des URI et arguments donnés. 
 
 Le service de requêtes vers une API météo nous permet bien de recueillir les informations relatives aux activités stockées en base de données. Ce service est implémenté au sein d'une méthode @Scheduled qui permet d'envoyer un mail de notification tous les mercredis avec les recommandations pour le week-end.
 
@@ -61,7 +59,7 @@ $ mvn install docker:build -DskipTests
 
 Les commandes suivantes permettent de construire nos fichiers statiques, puis de les disposer sur un serveur nginx dans le repertoire /frontend/React :
 ```sh
-$ npm run-script build // pour construire les fichiers statiques
+$ npm run build // pour construire les fichiers statiques
 $ docker build -t nginx-react . // Construit une image docker du server nginx avec les fichiers statiques
 ```
 
