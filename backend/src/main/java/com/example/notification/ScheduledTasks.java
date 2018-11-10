@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.api.APIException;
@@ -56,7 +57,9 @@ public class ScheduledTasks {
          * We do for only one user to test
          * TODO: do for all users
          */
-        User user = userService.getUserByUsername("user");
+        List<User> users = userService.getUsers();
+        if (users.size() == 0 ){ return ; }
+        User user = users.get(0);
 
         for(Activite a : user.getActivites()){
 
