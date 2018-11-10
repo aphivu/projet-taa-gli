@@ -66,7 +66,7 @@ $ docker-compose up
 
 L'application démarre et est accéssible sur ``` http://localhost/```.
 
-Après le premier lancement, la base de données est vide. Importer le fichier ```sh db-init-test.sql``` pour nourir la base de données et tester l'application. Phpmyadmin est accéssible sur le port 8081. 
+Après le premier lancement, la base de données est vide. Importer le fichier ``` db-init-test.sql``` pour nourir la base de données et tester l'application. Phpmyadmin est accéssible sur le port 8081. 
 
 Une fois la base de données nourrie, il est possible de s'authentifier et gérer nos activités du week-end sur ``` http://localhost/```. 
 
