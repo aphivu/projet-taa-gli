@@ -66,12 +66,18 @@ $ docker-compose up
 
 L'application démarre et est accéssible sur ``` http://localhost/```.
 
-Après le premier lancement, la base de données est vide.
+Après le premier lancement, la base de données est vide. Phpmyadmin est accessible sur le port 8081. Pour avoir des utilisateurs:
 
-Exemple de requête pour ajouter un sport en tant qu'admin :
+```
+INSERT INTO `user` (`username`, `mail`, `password`, `role`) VALUES ('phivu', 'alexandre.vu@etudiant.univ-rennes1.fr', 'password', '0'); #user role
+INSERT INTO `user` (`username`, `mail`, `password`, `role`) VALUES ('admintest', 'alexandre.vu@etudiant.univ-rennes1.fr', 'password', '1'); #admin role
+```
+
+Exemple de requête pour ajouter un sport et une localisation en tant qu'admin :
 
 ```sh
 $ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addSport --data '{"name":"Belote","environment":"INSIDE"}'
+$ curl -X POST -H 'Content-Type: application/json' --user admintest:password -i http://localhost:8080/api/admin/addLocalisation --data '{"region":"Fr","ville":"Rennes"}'
 
 ```
 
