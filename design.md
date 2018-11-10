@@ -12,7 +12,7 @@ Le backend est décomposé en plusieurs couches :
  - La couche DAO : persistance des données
  - La couche Service : traitement et échange des informations entre la couche controller et DAO
  - La couche Controller : point d'arrivée des requêtes provenant du client
-```
+
 Autour de ces couches se trouvent :
  - Les entités : implémentation du modèle métier fournis pas JPA pour le mapping relationnel vers la base de données
  - Les DTO : objets pour structurer les données nécessaires dans les échanges JSON vers le client. Le mapping des DTO et des entités se fait dans la couche service
