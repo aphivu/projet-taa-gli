@@ -60,7 +60,6 @@ $ mvn install docker:build -DskipTests
 Les commandes suivantes permettent de construire nos fichiers statiques, puis de les disposer sur un serveur nginx dans le repertoire /frontend/React :
 ```sh
 $ npm run build // pour construire les fichiers statiques 
-// (```npm rebuild``` : sans encore avoir trouvé la raison, besoin de rebuild le front quand docker compose ne fonctionne pas)
 $ docker build -t nginx-react . // Construit une image docker du server nginx avec les fichiers statiques
 ```
 
@@ -68,6 +67,8 @@ La commande suivante permet d'executer le docker-compose pour déployer l'ensemb
 
 ```sh
 $ docker-compose up
+// parfois nginx ne démarre pas correctement, relancer docker-compose up 
+// Pas encore trouvé où était la mauvaise configuration
 ```
 
 L'application démarre et est accéssible sur ``` http://localhost/```.
