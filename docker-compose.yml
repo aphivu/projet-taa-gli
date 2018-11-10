@@ -32,6 +32,7 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
+      - nginx
     environment:
       - DATABASE_HOST=docker-mysql
       - DATABASE_USER=user
