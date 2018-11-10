@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -49,4 +48,4 @@ hs_err_pid*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> old_gli/master
+
